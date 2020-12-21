@@ -46,6 +46,16 @@ class TagController extends Controller
 
         $tags = Tag::where('image_id', $request->input('image_id'))->get();
 
+        if(count($tags) === 0) {
+
+            return  response()->json([
+
+                "success" => false,
+                "data" => "There is no tags for given image."
+            ], 404);
+
+        }
+
         return response()->json([
             "success" => true,
             "data" => $tags
