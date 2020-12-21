@@ -77,8 +77,8 @@ class ImageController extends Controller
 
     /**
      * Third tasks, uploading picture
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param UploadImageRequest $request
+     * @return JsonResponse
      */
     public function upload(UploadImageRequest $request) {
 
@@ -141,7 +141,7 @@ class ImageController extends Controller
     /**
      * Search by category
      * @param FilterByCategoryImageRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function filterByCategory(FilterByCategoryImageRequest $request): JsonResponse
     {
