@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\auth\RegisterAuthRequest;
 use App\Models\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -38,26 +39,16 @@ class AuthController extends Controller
     /**
      * Register a User.
      *
-     * @param Request $request
+     * @param RegisterAuthRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request): \Illuminate\Http\JsonResponse
+    public function register(RegisterAuthRequest $request): \Illuminate\Http\JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|between:6,255',
-            'password_confirmation' => 'required|string|between:6,255',
-
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 401);
-        }
+        $validated = $request->validated();
 
         $user = User::create(array_merge(
-            $validator->validated(),
-            ['password' => bcrypt($request->password)]
+            $validated,
+            ['password' => bcrypt($validated['password'])]
         ));
 
         return response()->json([
