@@ -66,7 +66,7 @@ class TagController extends Controller
 
     /**
      * Search by category
-     * @param Request $request
+     * @param CreateTagRequest $request
      * @return JsonResponse
      */
     public function create(CreateTagRequest $request) {
