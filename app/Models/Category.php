@@ -15,10 +15,10 @@ class Category extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function image()
+    public function images()
     {
-        return $this->belongsTo(Image::class);
+        return $this->hasMany(Image::class);
     }
 }

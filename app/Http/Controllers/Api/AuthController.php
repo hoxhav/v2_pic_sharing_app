@@ -25,7 +25,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(): \Illuminate\Http\JsonResponse
     {
         $credentials = request(['email', 'password']);
 
@@ -62,8 +62,9 @@ class AuthController extends Controller
         ));
 
         return response()->json([
+            'success' => true,
             'message' => 'User successfully registered',
-            'user' => $user
+            'data' => $user
         ], 201);
     }
 
@@ -82,7 +83,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(): \Illuminate\Http\JsonResponse
     {
         auth()->logout();
 
@@ -94,7 +95,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh()
+    public function refresh(): \Illuminate\Http\JsonResponse
     {
         return $this->respondWithToken(auth()->refresh());
     }
@@ -106,7 +107,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($token): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'access_token' => $token,
