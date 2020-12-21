@@ -70,24 +70,13 @@ class TagController extends Controller
      */
     public function create(Request $request) {
 
-        $validator = Validator::make($request->all(), [
-
-            'name' => 'required|string|max:255',
-            'image_id' => 'required|integer',
-
-        ]);
-
-        if ($validator->fails()) {
-
-            return response()->json($validator->errors(), 422);
-
-        }
+        $validated = $request->validated();
 
         $tag = new Tag();
 
-        $tag->name = $request->input('name');
+        $tag->name = $validated['name'];
 
-        $tag->image_id = $request->input('image_id');
+        $tag->image_id = $validated['image_id'];
 
         $tag->save();
 

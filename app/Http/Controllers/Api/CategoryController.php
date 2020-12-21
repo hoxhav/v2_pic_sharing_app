@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\category\CreateCategoryRequest;
 use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Http\JsonResponse;
@@ -38,24 +39,16 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param CreateCategoryRequest $request
      * @return JsonResponse
      */
-    public function create(Request $request) {
+    public function create(CreateCategoryRequest $request) {
 
-        $validator = Validator::make($request->all(), [
-
-            'name' => 'required|string|max:255',
-
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+        $validated = $request->validated();
 
         $category = new Category();
 
-        $category->name = $request->input('name');
+        $category->name = $validated['name'];
 
         $category->save();
 
