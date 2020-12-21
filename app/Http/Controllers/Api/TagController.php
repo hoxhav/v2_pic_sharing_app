@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\tag\CreateTagRequest;
 use App\Models\Tag;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -68,7 +69,7 @@ class TagController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function create(Request $request) {
+    public function create(CreateTagRequest $request) {
 
         $validated = $request->validated();
 
